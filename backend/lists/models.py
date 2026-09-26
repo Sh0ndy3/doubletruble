@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 
+
 class List(models.Model):
     list_id = models.UUIDField(
         primary_key=True,
@@ -18,11 +19,18 @@ class List(models.Model):
     def __str__(self):
         return str(self.list_id)
 
+
 class Option(models.Model):
-    option_name = models.CharField(),
+    option_name = models.CharField(
+        max_length=255,
+        db_column="optionName",
+    )
     list = models.ForeignKey(
         List,
         on_delete=models.CASCADE,
-        related_name="option",
+        related_name="options",
         db_column="listID"
     )
+
+    def __str__(self):
+        return self.option_name

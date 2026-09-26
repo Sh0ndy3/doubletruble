@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 
+
 class User(models.Model):
     user_id = models.UUIDField(
         primary_key=True,
@@ -12,8 +13,17 @@ class User(models.Model):
     second_name = models.CharField(max_length=100)
     birth_date = models.DateField()
 
+    @property
+    def is_authenticated(self):
+        return True
+
+    @property
+    def is_anonymous(self):
+        return False
+
     def __str__(self):
         return f"{self.first_name} {self.second_name}"
+
 
 class Auth(models.Model):
     user = models.OneToOneField(
